@@ -1,0 +1,21 @@
+version: '3'
+services:
+  my-java-app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - JAVA_OPTS=- Xmx512m -Xms256m
+    depends_on:
+      - mysql
+    volumes:
+      - ./target/my-java-app.war:/app
+  mysql:
+    image: mysql:8.0
+    volumes:
+      - gfg-mysql-data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=test_db
+volumes:
+  gfg-mysql-data:
